@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <title>Review DOM</title>
     <script>
+      let colors = ["red", "blue", "yellow"];
+
       function changeColor() {
         const element = document.getElementById("para");
-
-        let colors = ["red", "blue", "yellow"];
 
         // 누를 때마다 색깔 배열의 순서대로
         element.style.color = colors.shift();
