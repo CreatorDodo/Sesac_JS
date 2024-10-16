@@ -4,21 +4,21 @@ console.log(a);
 
 /* -------------------------------------------- */
 
-console.log(("b" + "a" + +"a" + "a").toLowerCase());
+console.log(('b' + 'a' + +'a' + 'a').toLowerCase());
 
 /* -------------------------------------------- */
 
 let numbers = [1, 2, 3, 4, 5];
 
 numbers.forEach(function (n) {
-  console.log(n);
+    console.log(n);
 });
 
 /* ------------------ Function ------------------ */
 
 // sum2에 익명함수 대입.
 let sum2 = function add(a, b) {
-  return a + b;
+    return a + b;
 };
 console.log(sum2(2, 3));
 
@@ -26,7 +26,7 @@ console.log(sum2(2, 3));
 
 // sum3에 화살표 함수 대입.
 let sum3 = (a, b) => {
-  return a + b;
+    return a + b;
 };
 
 console.log(sum3(2, 3));
@@ -54,11 +54,11 @@ console.log(div(1, 2));
 
 // person 변수에 객체 대입.
 let person = {
-  name: "홍길동",
-  age: 16,
-  greet: function () {
-    console.log("안녕하세요." + this.name + "입니다.");
-  },
+    name: '홍길동',
+    age: 16,
+    greet: function () {
+        console.log('안녕하세요.' + this.name + '입니다.');
+    },
 };
 
 console.log(person.name);
@@ -67,6 +67,6 @@ person.greet();
 
 /* ------------------ Array ------------------ */
 
-let fruits = ["apple", "banana", "cherry"];
+let fruits = ['apple', 'banana', 'cherry'];
 
 console.log(fruits.length);

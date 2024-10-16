@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Review Progress</title>
+        <style>
+            #progress-bar {
+                width: 0;
+                height: 30px;
+                background-color: rgba(102, 255, 0, 0.5);
+                text-align: center;
+            }
+        </style>
+    </head>
+    <!--  rgb vs rgba
+        rgb: red, green, blue
+        rgba: red, green, blue, alpha
+        alpha: 투명도 (0: 완전 투명, 1: 완전 불투명) -->
+
+    <!--  display: block vs inline vs inline-block
+        block: 요소를 block 요소로 만듦 (새로운 줄에서 시작)
+        inline: 요소를 inline 요소로 만듦 (문장 안에 포함)
+        inline-block: 요소를 inline-block 요소로 만듦 (새로운 줄에서 시작하지 않음)
+        -->
+    <body>
+        <h1 id="progress">프로그래스바 만들기</h1>
+        <button id="start">시작</button>
+        <button id="reset">초기화</button>
+        <div id="progress-bar"></div>
+        <script>
+            const progress = document.getElementById('progress');
+            const start = document.getElementById('start');
+            const reset = document.getElementById('reset');
+            const progressBar = document.getElementById('progress-bar');
+
+            let count = 0;
+            let intervalId = null;
+
+            start.onclick = () => {
+                if (intervalId !== null) {
+                    return;
+                }
+
+                // window.onload = () => {
+                //  setTimeout(() => {
+                //    alert("Hello World!");
+                //    location.href = "https://www.naver.com"; // 페이지 이동
+                //    location.reload(); // 새로고침
+                //   location.reload(true); // 새로고침 (캐시 무시)
+                //   location = location; // 주소창에 입력한 주소로 이동
+                //    window.open("https://www.naver.com", "_blank"); // 새 창 열기
+                //  }, 3000);
+                //};
+
+                // setInterval vs setTimeout vs requestAnimationFrame
+                // setInterval: 일정 시간 간격으로 함수를 반복 실행
+                // setTimeout: 일정 시간 후에 함수를 실행
+                // requestAnimationFrame: 브라우저에게 수행하기를 원하는 애니메이션을 알리고, 다음 리페인트가 진행되기 전에 해당 애니메이션을 업데이트하는 함수를 호출
+                intervalId = setInterval(() => {
+                    count++;
+                    // progress.textContent = `${count}%`;
+                    progressBar.innerHTML = `${count}%`;
+                    progressBar.style.width = `${count}%`;
+
+                    if (count === 100) {
+                        clearInterval(intervalId);
+                        intervalId = null;
+                    }
+                }, 100);
+            };
+
+            reset.onclick = () => {
+                clearInterval(intervalId);
+                intervalId = null;
+                count = 0;
+                // progress.textContent = `${count}%`;
+                progressBar.innerHTML = `${count}%`;
+                progressBar.style.width = `${count}%`;
+            };
+        </script>
+    </body>
+</html>

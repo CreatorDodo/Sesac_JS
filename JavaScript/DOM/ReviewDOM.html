@@ -1,26 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Review DOM</title>
-    <script>
-      let colors = ["red", "blue", "yellow"];
+    <head>
+        <meta charset="utf-8" />
+        <title>Review DOM</title>
+        <script>
+            let colors = ['red', 'blue', 'yellow'];
 
-      function changeColor() {
-        const element = document.getElementById("para");
+            function changeColor() {
+                const element = document.getElementById('para');
 
-        // 누를 때마다 색깔 배열의 순서대로
-        element.style.color = colors.shift();
-        colors.push(element.style.color);
+                // 누를 때마다 색깔 배열의 순서대로
+                element.style.color = colors.shift();
+                colors.push(element.style.color);
 
-        // console.log(element);
-        // document.write("The color of the paragraph has been changed.");
-      }
-    </script>
-  </head>
-  <body>
-    <p id="para">This is a paragraph.</p>
-    <button onclick="changeColor()">Change Color</button>
-    <script></script>
-  </body>
+                // 랜덤 색상 바꾸기
+                const randomColor =
+                    '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+                // console.log(element);
+                // document.write("The color of the paragraph has been changed.");
+            }
+        </script>
+    </head>
+    <body>
+        <p id="para">This is a paragraph.</p>
+        <button onclick="changeColor()">Change Color</button>
+        <script></script>
+    </body>
 </html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Review Table Color</title>
+    </head>
+    <body>
+        <table border="1">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+            </tr>
+        </table>
+        <br />
+        <button onclick="changeCellColor()">셀 색상 변경</button>
+        <button onclick="changeOddCellColor()">홀수 셀 색상 변경</button>
+        <script>
+            changeCellColor = () => {
+                const table = document.querySelector('table');
+                const cells = table.querySelectorAll('td');
+
+                const randomColor =
+                    '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+                cells.forEach((cell) => {
+                    cell.style.backgroundColor = randomColor;
+                });
+            };
+
+            changeOddCellColor = () => {
+                const table = document.querySelector('table');
+                const cells = table.querySelectorAll('td');
+
+                const randomColor =
+                    '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+                cells.forEach((cell, index) => {
+                    if (index % 2 === 0) {
+                        cell.style.backgroundColor = randomColor;
+                    }
+                });
+            };
+
+            // document.write("Hello World!");
+            // textContent는 태그를 제외한 텍스트만 가져옴 (태그를 제외한 텍스트만 가져오기 때문에, 태그를 추가할 수 없음)
+            // innerHTML은 태그를 포함한 텍스트를 가져옴 (태그를 포함한 텍스트를 가져오기 때문에, 태그를 추가할 수도 있음)
+            // innerText는 태그를 포함한 텍스트를 가져오지만, 숨겨진 요소를 가져오지 않음 (태그를 포함한 텍스트를 가져오기 때문에, 태그를 추가할 수도 있음)
+            // innerText는 숨겨진 요소를 가져오지 않기 때문에, textContent보다 빠름
+            // innerText는 렌더링된 텍스트를 가져오기 때문에, textContent보다 느림
+            // innerText는 렌더링된 텍스트를 가져오기 때문에, textContent보다 레이아웃이 더 많이 발생함
+
+            // DOM에 새로운 node를 추가하는 방법
+            // var newNode = vdocument.createElement("태그명") : 태그를 생성
+            // newNode.innerHTML = "내용" : 태그에 내용을 추가
+            // document.body.appendChild(newNode) : body에 태그를 추가
+        </script>
+    </body>
+</html>
