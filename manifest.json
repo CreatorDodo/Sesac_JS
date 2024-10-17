@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "Guess the number",
+    "version": "1.0",
+    "description": "Guess the number game",
+    "action": {
+        "default_popup": "JavaScript/DOM/ReviewGuessNumber.html",
+        "default_icon": {
+            "16": "JavaScript/DOM/images/Guess.png"
+        }
+    }
+}
