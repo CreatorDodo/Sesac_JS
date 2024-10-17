@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ReviewPrint</title>
+    </head>
+    <style></style>
+    <body>
+        <button id="print">페이지 출력</button>
+        <p>
+            총균쇠.
+            <br />
+            총균쇠.
+        </p>
+        <script>
+            document
+                .getElementById('print')
+                .addEventListener('click', function () {
+                    window.print();
+                });
+
+            window.onbeforeprint = function () {
+                alert('페이지 출력을 시작합니다.');
+            };
+
+            window.onafterprint = function () {
+                alert('페이지 출력이 완료되었습니다.');
+            };
+        </script>
+    </body>
+</html>

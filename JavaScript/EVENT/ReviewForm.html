@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ReviewForm</title>
+    </head>
+    <style></style>
+    <body>
+        <form id="form">
+            <input type="text" id="name" placeholder="이름" />
+            <input type="text" id="email" placeholder="이메일" />
+            <button type="submit">제출</button>
+            <button type="reset">초기화</button>
+        </form>
+        <script>
+            document
+                .getElementById('form')
+                .addEventListener('submit', function (e) {
+                    e.preventDefault(); // 기본 이벤트를 중단합니다.(Submit 하지 않습니다.)
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    console.log(name, email);
+                });
+
+            document
+                .getElementById('form')
+                .addEventListener('reset', function (e) {
+                    e.preventDefault(); // 기본 이벤트를 중단합니다.(Reset 하지 않습니다.)
+                    console.log('초기화되었습니다.');
+                    const text = document.getElementById('name');
+                    text.value = 'Stop reset';
+                });
+        </script>
+    </body>
+</html>

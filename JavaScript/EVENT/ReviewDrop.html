@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ReviewScroll</title>
+    </head>
+    <style>
+        .dragItem {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        #dragZone {
+            width: 500px;
+            height: 500px;
+            margin-top: 50px;
+            border: 1px solid black;
+        }
+
+        #dragItem1 {
+            background-color: red;
+            color: white;
+        }
+
+        #dragItem2 {
+            background-color: blue;
+            color: white;
+        }
+
+        #dragItem3 {
+            background-color: green;
+            color: white;
+        }
+    </style>
+    <body>
+        <div id="dragItem1" class="dragItem" draggable="true">Drag Me1</div>
+        <div id="dragItem2" class="dragItem" draggable="true">Drag Me2</div>
+        <div id="dragItem3" class="dragItem" draggable="true">Drag Me3</div>
+        <div id="dragZone">DragZone</div>
+        <script>
+            const dragItems = document.querySelectorAll('.dragItem');
+            const dragZone = document.getElementById('dragZone');
+
+            dragItems.forEach(function (dragItem) {
+                dragItem.addEventListener('dragstart', function (e) {
+                    console.log('dragStart' + e.target.id);
+                    event.dataTransfer.setData('drag', e.target.id);
+                });
+            });
+
+            dragZone.addEventListener('dragover', function (e) {
+                e.preventDefault(); // drop 이벤트를 발생시키기 위해서는 preventDefault() 메소드를 호출해야 합니다. 이유는 drop 이벤트는 기본적으로 허용되지 않기 때문입니다.
+                console.log('dragOver');
+            });
+
+            dragZone.addEventListener('drop', function (e) {
+                // drop 이벤트가 발생하면, 브라우저가 기본 동작을 실행하지 않도록 합니다.
+                e.preventDefault();
+                const data = event.dataTransfer.getData('drag');
+                console.log('drop' + data);
+                data && dragZone.appendChild(document.getElementById(data));
+            });
+        </script>
+    </body>
+</html>

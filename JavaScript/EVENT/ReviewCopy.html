@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ReviewCopy</title>
+    </head>
+    <style></style>
+    <body>
+        <textarea id="myTextArea">이 글자를 복사해보시오.</textarea>
+        <script>
+            document
+                .getElementById('myTextArea')
+                .addEventListener('copy', function () {
+                    alert('복사되었습니다.');
+                });
+
+            document
+                .getElementById('myTextArea')
+                .addEventListener('cut', function () {
+                    alert('잘라내기 되었습니다.');
+                });
+
+            document
+                .getElementById('myTextArea')
+                .addEventListener('paste', function () {
+                    alert('붙여넣기 되었습니다.');
+                });
+        </script>
+    </body>
+</html>

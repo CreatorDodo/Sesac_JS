@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ReviewScroll</title>
+    </head>
+    <style>
+        #dragZone {
+            width: 200px;
+            height: 200px;
+            margin-top: 50px;
+            border: 1px solid black;
+        }
+
+        #dragItem {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+        }
+    </style>
+    <body>
+        <div id="dragItem" draggable="true">Drag Me</div>
+        <div id="dragZone">DragZone</div>
+        <script>
+            const dragItem = document.getElementById('dragItem');
+            const dragZone = document.getElementById('dragZone');
+
+            dragItem.addEventListener('dragstart', function () {
+                console.log('dragStart');
+            });
+
+            //dragItem1.addEventListener('dragstart', function (e) {
+            // dragstart 이벤트가 발생하면, dragItem 요소의 id 속성 값을 drag1 이라는 이름으로 설정합니다.
+            //    console.log('dragStart1' + e.target.id);
+            //    event.dataTransfer.setData('drag', e.target.id);
+            //});
+
+            dragItem.addEventListener('dragend', function () {
+                console.log('dragEnd');
+            });
+
+            dragZone.addEventListener('dragover', function (e) {
+                e.preventDefault(); // drop 이벤트를 발생시키기 위해서는 preventDefault() 메소드를 호출해야 합니다. 이유는 drop 이벤트는 기본적으로 허용되지 않기 때문입니다.
+                console.log('dragOver');
+            });
+
+            dragZone.addEventListener('drop', function (e) {
+                // drop 이벤트가 발생하면, 브라우저가 기본 동작을 실행하지 않도록 합니다.
+                e.preventDefault();
+                console.log('drop');
+                // DOM 트리 구조상, 멀티 parent 를 가질 수 없기 때문에, appendChild() 메소드를 사용하여 dragItem 요소를 dragZone 요소로 이동시킵니다.
+                dragZone.appendChild(dragItem);
+            });
+        </script>
+    </body>
+</html>

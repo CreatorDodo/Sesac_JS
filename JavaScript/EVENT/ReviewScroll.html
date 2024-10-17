@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ReviewScroll</title>
+    </head>
+    <style>
+        #content {
+            height: 2000px;
+            background-color: linear-gradient(to bottom, #f0f0f0, #f0f0f0);
+        }
+    </style>
+    <body>
+        <div id="content">text</div>
+        <script>
+            window.addEventListener('scroll', function () {
+                console.log('scrolling');
+            });
+
+            // window.pageYOffset은 문서의 맨 위에서부터 스크롤된 거리를 반환합니다.
+            const scrollPosition = window.pageYOffset;
+            console.log(`현재 위치: ${scrollPosition}`);
+
+            // document.documentElement.scrollTop은 문서의 맨 위에서부터 스크롤된 거리를 반환합니다.
+            const scrollPosition2 = document.documentElement.scrollTop;
+            console.log(`현재 위치2: ${scrollPosition2}`);
+
+            const scrollPosition3 =
+                document.documentElement.scrollTop || window.pageYOffset;
+            console.log(`현재 위치3: ${scrollPosition3}`);
+
+            document.addEventListener('wheel', function (event) {
+                console.log('scrolling');
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ReviewContextMenu</title>
+    </head>
+    <style>
+        #content {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+        }
+    </style>
+    <body>
+        <div id="content">text</div>
+    </body>
+
+    <script>
+        // 우클릭 방지
+        // document.addEventListener('contextmenu', function (event) {
+        //      event.preventDefault();
+        // });
+
+        // content div에 마우스 우클릭 방지
+        const content = document.getElementById('content');
+        content.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+    </script>
+</html>
