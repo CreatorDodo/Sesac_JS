@@ -93,6 +93,11 @@
             let previousOperand = '';
             let operation = null;
 
+            //function appendSymbol(symbol) {
+            // const resultDOM = document.getElementById('result');
+            //   const lastInput = resultDOM.value[resultDOM.value.length - 1];
+            //}
+
             function appendNumber(number) {
                 if (currentOperand.includes('.') && number === '.') return;
                 currentOperand = currentOperand.toString() + number.toString();
