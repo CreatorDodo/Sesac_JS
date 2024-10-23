@@ -208,14 +208,33 @@
 // 9. 함수화
 function drawHeart(n) {
     // 상단
-
+    for (let i = 0; i < n - 1; i++) {
+        let star = '';
+        for (let j = 0; j < 2 * (2 * n - 1) - 1; j++) {
+            if (
+                (j < n - 1 - i || j > n - 1 + i) &&
+                (j < 2 * (2 * n - 1) - (n + 1) - i ||
+                    j > 2 * (2 * n - 1) - (n + 1) + i)
+            ) {
+                star += ' ';
+            } else {
+                star += '*';
+            }
+        }
+        console.log(star);
+    }
     // 중단
+    let star = '';
+    for (let j = 0; j < 2 * (2 * n - 1) - 1; j++) {
+        star += '*';
+    }
+    console.log(star);
 
     // 하단
-    for (let i = n - 1; i >= 0; i--) {
+    for (let i = n - 2; i >= 0; i--) {
         let star = '';
-        for (let j = 0; j < 4 * n - 1; j++) {
-            if (j < n - 1 - i || j > 3 * n - 3 + i) {
+        for (let j = 0; j < 2 * (2 * n - 1) - 2; j++) {
+            if (j < 2 * n - 1 - 1 - 2 * i || j > 2 * n - 1 - 1 + 2 * i) {
                 star += ' ';
             } else {
                 star += '*';
@@ -226,17 +245,5 @@ function drawHeart(n) {
 }
 
 drawHeart(5);
-
-//     for (let i = n - 1; i >= 0; i--) {
-//         let star = '';
-//         for (let j = 0; j < 2 * n - 1; j++) {
-//             if (j < n - 1 - i || j > n - 1 + i) {
-//                 star += ' ';
-//             } else {
-//                 star += '*';
-//             }
-//         }
-//         console.log(star);
-//     }
 
 // console.log('=====================');
