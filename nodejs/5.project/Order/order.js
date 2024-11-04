@@ -3,6 +3,7 @@
 import writeCsv from '../CSV/csv_writer.js';
 import readCsv from '../CSV/csv_reader.js';
 import generateUUID from '../Generater/generateUUID.js';
+import moment from 'moment';
 
 const userCsv = readCsv('user.csv');
 const storeCsv = readCsv('store.csv');
@@ -17,18 +18,26 @@ for (let i = 0; i < orderCount; i++) {
     // toISOString()를 이용하여 현재 시간을 문자열로 변환
     // ISOString은 UTC시간을 기준으로 표시
     // 2000 ~ 2024년 사이의 날짜를 생성
-    const orderAt = new Date(
-        Math.floor(Math.random() * (2024 - 2000 + 1)) + 2000,
-        Math.floor(Math.random() * 12) + 1,
-        Math.floor(Math.random() * 28) + 1,
-        Math.floor(Math.random() * 24),
-        Math.floor(Math.random() * 60),
-        Math.floor(Math.random() * 60),
-    )
-        .toISOString()
-        .replace('T', ' ')
-        .replace('Z', '')
-        .replace('.000', '');
+    // const orderAt = new Date(
+    //     Math.floor(Math.random() * (2024 - 2000 + 1)) + 2000,
+    //     Math.floor(Math.random() * 12) + 1,
+    //     Math.floor(Math.random() * 28) + 1,
+    //     Math.floor(Math.random() * 24),
+    //     Math.floor(Math.random() * 60),
+    //     Math.floor(Math.random() * 60),
+    // )
+    //     .toISOString()
+    //     .replace('T', ' ')
+    //     .replace('Z', '')
+    //     .replace('.000', '');
+    const orderAt = moment({
+        year: Math.floor(Math.random() * (2024 - 2000 + 1)) + 2000,
+        month: Math.floor(Math.random() * 12),
+        day: Math.floor(Math.random() * 28) + 1,
+        hour: Math.floor(Math.random() * 24),
+        minute: Math.floor(Math.random() * 60),
+        second: Math.floor(Math.random() * 60),
+    }).format('YYYY-MM-DD HH:mm:ss');
     const userId = userCsv[Math.floor(Math.random() * userCsv.length)].Id;
     const storeId = storeCsv[Math.floor(Math.random() * storeCsv.length)].Id;
     data.push([generateUUID(), orderAt, storeId, userId]);
