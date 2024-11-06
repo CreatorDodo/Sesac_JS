@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CRUD</title>
+
+        <style>
+            #container {
+                display: flex;
+                justify-content: space-between;
+            }
+            #user-table,
+            #user-form {
+                width: 45%;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0, 0, 0);
+                background-color: rgba(0, 0, 0, 0.4);
+                padding-top: 60px;
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+            }
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="user-table">
+                <h2>User Table</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- 사용자 데이터가 여기에 추가됩니다 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="user-form">
+                <h2>User Form</h2>
+                <form id="userForm" action="/users" method="POST">
+                    <label>Name:</label>
+                    <input type="text" id="name" name="name" required />
+                    <br />
+                    <label>Email:</label>
+                    <input type="email" id="email" name="email" required />
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 모달 -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit User</h2>
+                <form id="editForm">
+                    <label for="editName">Name:</label>
+                    <input type="text" id="editName" name="name" required />
+                    <br />
+                    <label for="editEmail">Email:</label>
+                    <input type="email" id="editEmail" name="email" required />
+                    <br />
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- express 모듈을 사용하여 정적 파일을 제공할 수 있습니다. -->
+        <!-- <script src="static/main.js"></script> -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('DOM loaded');
+                const userTableBody = document.getElementById('userTableBody');
+                const userForm = document.getElementById('userForm');
+                const editModal = document.getElementById('editModal');
+                const editForm = document.getElementById('editForm');
+                const closeModal = document.querySelector('.close');
+
+                // 모달 닫기
+                closeModal.onclick = function () {
+                    editModal.style.display = 'none';
+                };
+
+                // 모달 외부 클릭 시 닫기
+                window.onclick = function (event) {
+                    if (event.target == editModal) {
+                        editModal.style.display = 'none';
+                    }
+                };
+
+                // 사용자 데이터를 가져와서 테이블에 추가하는 함수
+                function loadUsers() {
+                    fetch('/users')
+                        .then((response) => response.json())
+                        .then((users) => {
+                            // 테이블 한번 지우고 다시 추가
+                            userTableBody.innerHTML = '';
+                            users.forEach((user) => {
+                                addUserToTable(user);
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error loading users:', error);
+                        });
+                }
+
+                // 페이지가 로드될 때 사용자 데이터를 가져옴
+                loadUsers();
+
+                userForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(userForm);
+                    // Convert FormData to object
+                    const formDataObject = Object.fromEntries(
+                        formData.entries(),
+                    );
+                    const formDataJson = JSON.stringify(formDataObject);
+                    const id = userForm.dataset.id;
+                    const method = id ? 'PUT' : 'POST';
+                    const url = id ? `/users/${id}` : '/users';
+                    fetch(url, {
+                        method: method,
+                        body: formDataJson,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw new Error('Failed to submit form');
+                            }
+                        })
+                        .then((data) => {
+                            if (method === 'POST') {
+                                addUserToTable(data);
+                            } else {
+                                updateUserInTable(data);
+                            }
+                            userForm.reset();
+                            delete userForm.dataset.id;
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                });
+
+                userTableBody.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('edit-btn')) {
+                        const row = event.target.closest('tr');
+                        const id = row.dataset.id;
+                        const name = row.querySelector('.name').textContent;
+                        const email = row.querySelector('.email').textContent;
+                        document.getElementById('name').value = name;
+                        document.getElementById('email').value = email;
+                        userForm.dataset.id = id;
+                        editModal.style.display = 'block';
+                    } else if (event.target.classList.contains('delete-btn')) {
+                        const row = event.target.closest('tr');
+                        const id = row.dataset.id;
+                        fetch(`/users/${id}`, {
+                            method: 'DELETE',
+                        })
+                            .then((response) => {
+                                if (response.ok) {
+                                    row.remove();
+                                } else {
+                                    throw new Error('Failed to delete user');
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }
+                });
+
+                editForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(editForm);
+                    const formDataObject = Object.fromEntries(
+                        formData.entries(),
+                    );
+                    const formDataJson = JSON.stringify(formDataObject);
+                    const id = userForm.dataset.id;
+
+                    fetch(`/users/${id}`, {
+                        method: 'PUT',
+                        body: formDataJson,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw new Error('Failed to submit form');
+                            }
+                        })
+                        .then((data) => {
+                            loadUsers();
+                            editModal.style.display = 'none';
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                });
+
+                function addUserToTable(user) {
+                    const row = document.createElement('tr');
+                    row.dataset.id = user.id;
+                    row.innerHTML = `
+                            <td class="name">${user.name}</td>
+                            <td class="email">${user.email}</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        `;
+                    userTableBody.appendChild(row);
+                }
+            });
+        </script>
+    </body>
+</html>
