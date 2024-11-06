@@ -101,6 +101,13 @@ app.delete('/users/:id', (req, res) => {
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _) => {
     console.error('에러발생: ', err.message);
+    res.status(500).sendFile(
+        path.join(__dirname, 'express', '4.expressIntegration', '500.html'),
+    );
+});
+
+// 404 핸들러
+app.use((req, res) => {
     res.status(404).sendFile(
         path.join(__dirname, 'express', '4.expressIntegration', '404.html'),
     );
