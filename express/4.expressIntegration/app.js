@@ -49,6 +49,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/users', (req, res) => {
+    // res.type('application/json');
     res.json(users);
 });
 
@@ -92,6 +93,7 @@ app.delete('/users/:id', (req, res) => {
     if (userIndex !== -1) {
         users.splice(userIndex, 1);
         res.status(200).json({ message: 'User deleted' });
+        // res.status(204).send();
     } else {
         res.status(404).send('User not found');
     }

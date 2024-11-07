@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>로그인</title>
+        <link rel="stylesheet" href="/styles.css" />
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/">홈</a></li>
+                    <li><a href="/">로그인</a></li>
+                    <li><a href="/logout">로그아웃</a></li>
+                    <li><a href="/profile">프로필</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="login-container">
+                <div class="logo">
+                    <svg viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                            d="M13.76 4.5h-7.52l-3.76 5.5 3.76 5.5h7.52l3.76-5.5-3.76-5.5zm-6.24 9.5h-0.72l-2.28-3.34 2.28-3.34h0.72v6.68zm5.24 0h-3.76v-6.68h3.76l2.28 3.34-2.28 3.34z"
+                        />
+                    </svg>
+                </div>
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <label for="username">사용자 이름</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="사용자 이름"
+                            required
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="password">비밀번호</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="비밀번호"
+                            required
+                        />
+                    </div>
+                    <button type="submit">로그인</button>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>
