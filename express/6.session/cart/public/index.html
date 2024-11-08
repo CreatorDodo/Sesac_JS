@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Product List and Cart</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css"
+        />
+    </head>
+    <body class="bg-gray-100 p-8">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-3xl font-bold mb-6">Product List</h1>
+            <table class="w-full bg-white rounded-lg shadow-md overflow-hidden">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600">
+                        <th class="px-4 py-3 text-left">ID</th>
+                        <th class="px-4 py-3 text-left">Name</th>
+                        <th class="px-4 py-3 text-right">Price</th>
+                        <th class="px-4 py-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 실제 상품 출력될 곳 -->
+                </tbody>
+            </table>
+
+            <h1 class="text-3xl font-bold my-6">Cart</h1>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table
+                class="w-full"
+                id="cart"
+            >
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600">
+                        <th class="px-4 py-3 text-left">ID</th>
+                        <th class="px-4 py-3 text-left">Name</th>
+                        <th class="px-4 py-3 text-right">Price</th>
+                        <th class="px-4 py-3 text-center">Quantity</th>
+                        <th class="px-4 py-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 실제 장바구니 항목 출력될 곳 -->
+                </tbody>
+            </table>
+        </div>
+
+        <script src="/js/cart.js"></script>
+    </body>
+</html>
+

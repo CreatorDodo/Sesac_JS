@@ -17,6 +17,10 @@ app.use(
         secret: 'mySecret', // 내 메모리에 저장되는 세션 ID를 암호화하기 위한 키
         resave: false, // 세션 데이터가 바뀌기 전까지는 세션 저장소에 값을 저장하지 않음
         saveUninitialized: true, // 세션이 필요하기 전까지는 세션을 구동시키지 않음
+        cookie: {
+            secure: false, // https를 통해만 세션을 전송할지 여부
+            maxAge: 1000 * 60 * 60, // 세션의 유효시간
+        },
     }),
 );
 app.use(express.json());
@@ -80,6 +84,9 @@ app.get('/profile', isAuthenticated, (req, res) => {
     // } else {
     //     res.status(401).json({ message: 'Unauthorized' });
     // }
+
+    //  세션 유효시간 지나서 로그아웃되는 것 방지하기.
+    req.session.touch(); // 세션 유효시간을 연장하는 코드
     res.status(200).json({
         username: req.session.username,
         message: '사용자 정보입니다.',
